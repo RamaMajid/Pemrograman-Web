@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Traits/LoggingTrait.php';
+require_once 'Trait/LoggingTrait.php';
 require_once 'Models/Course.php';
 require_once 'Models/OnlineCourse.php';
 require_once 'Models/User.php';
@@ -20,10 +20,8 @@ $controller->addUser("Mel", "Mel@gmail.com");
 $controller->addUser("Yasha", "Yasha@gmail.com");
 
 
-echo "Daftar Kursus:\n";
-$controller->showCourse();
-echo "\n";
-
-
-echo "Daftar Pengguna:\n";
-$controller->showUser();
+header('Content-Type: application/json');
+echo json_encode([
+    "DaftarKursus" => json_decode($controller->getCoursesAsJson(), true),
+    "DaftarPengguna" => json_decode($controller->getUsersAsJson(), true)
+], JSON_PRETTY_PRINT);
